@@ -3,9 +3,12 @@
 import Vue from 'vue'
 import App from './App'
 import router from './router'
+// eslint-disable-next-line
+import VueResource from 'vue-resource';
 
+Vue.use(VueResource)
 Vue.config.productionTip = false
-
+require('./styles/materialize/css/materialize.min.css')
 /* eslint-disable no-new */
 new Vue({
   el: '#app',

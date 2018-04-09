@@ -1,0 +1,29 @@
+{
+  "name": "apigetterserver",
+  "version": "1.0.0",
+  "description": "Backend server to get api calls from Jenkins as a workaround to CORS",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Ullas-Aithal/JenkinsJobsDashboard.git"
+  },
+  "keywords": [
+    "Jenkins",
+    "NodeJS"
+  ],
+  "author": "Ullas-Aithal",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/Ullas-Aithal/JenkinsJobsDashboard/issues"
+  },
+  "homepage": "https://github.com/Ullas-Aithal/JenkinsJobsDashboard#readme",
+  "dependencies": {
+    "body-parser": "^1.18.2",
+    "cors": "^2.8.4",
+    "express": "^4.16.3",
+    "request": "^2.85.0"
+  }
+}
