@@ -12,3 +12,5 @@ yarn-error.log*
 *.ntvs*
 *.njsproj
 *.sln
+local-jobData.js
+local-jenkinsCredentials.js

@@ -4,6 +4,7 @@ var bodyParser = require('body-parser');
 var cors = require('cors');
 var app = express();
 var auth = require('../jenkinsCredentials.js');
+//var auth = require('../local-jenkinsCredentials.js');
 app.use(bodyParser.json());
 app.use(cors());
 app.get('/',(req,response) => {
