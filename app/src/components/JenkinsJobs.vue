@@ -6,6 +6,7 @@
 </template>
 <script>
 import JobCard from './JobCard.vue'
+import jobData from '../../../jobData.js'
 export default {
   name: 'JenkinsJobs',
   components: {
@@ -13,16 +14,7 @@ export default {
   },
   data () {
     return {
-      jobs: [
-        {
-          name: 'name',
-          url: 'url'
-        },
-        {
-          name: 'name',
-          url: 'url'
-        }
-      ]
+      jobs: jobData
     }
   }
 

@@ -3,6 +3,7 @@ var request = require('request');
 var bodyParser = require('body-parser');
 var cors = require('cors');
 var app = express();
+var auth = require('../jenkinsCredentials.js');
 app.use(bodyParser.json());
 app.use(cors());
 app.get('/',(req,response) => {
@@ -16,16 +17,21 @@ app.post('/',(req,res) => {
     var options = {
         url: req.body.url,
         method: 'GET',
-        headers: {
-          Authorization: 'auth'
-        },
-        proxy: 'proxy'
+        auth: {
+            'user': auth.userName,
+            'pass': auth.password,
+            },
+        proxy: auth.proxy
       }    
     request(options,(error,response,body)=>{
-        console.log(body);
-        res.send(body);
-    })    
-
+        if(error){
+            console.log("Error connecting to Jenkins: " + error);
+        }
+        else{
+            console.log(response.statusCode + ' ' + response.statusMessage + ' for: ' + options.url);
+            res.send(body);
+        }
+    })   
 });
 
 
