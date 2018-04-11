@@ -27,19 +27,23 @@
               <p v-show="apiCalls" class="right italics">Updating...</p>
             </transition>
           </div>
-          <div v-if="currentStatus" class="card-tabs">
-            <ul class="tabs blue-grey darken-3 tabs-fixed-width">
-              <li class="tab"><a class="active" href="#test5">Build In Progress...</a></li>
-            </ul>
-          </div>
-          <div v-if="currentStatus" class="card-content blue-grey darken-3 white-text">
-            <div id="test5">
-              <p> Build Number : {{currentBuildData.displayName}} </p>
-              <p>{{currentBuildData.shortDescription}}</p>
-              <p> Started at : {{startedOn}} </p>
-              <p> Estimated Duration : {{estimatedDuration}} </p>
+          <transition name="fade">
+            <div v-if="currentStatus" class="card-tabs">
+              <ul class="tabs blue-grey darken-3 tabs-fixed-width">
+                <li class="tab"><a class="active" href="#test5">Build In Progress...</a></li>
+              </ul>
             </div>
-          </div>
+          </transition>
+            <transition name="fade">
+            <div v-if="currentStatus" class="card-content blue-grey darken-3 white-text">
+              <div id="test5">
+                <p> Build Number : {{currentBuildData.displayName}} </p>
+                <p>{{currentBuildData.shortDescription}}</p>
+                <p> Started at : {{startedOn}} </p>
+                <p> Estimated Duration : {{estimatedDuration}} </p>
+              </div>
+            </div>
+          </transition>
         </div>
     </div>
 </template>
@@ -162,7 +166,7 @@ export default {
   }
 
   .fade-enter-active, .fade-leave-active {
-    transition: opacity .5s;
+    transition: opacity 2s;
   }
   .fade-enter, .fade-leave-to /* .fade-leave-active below version 2.1.8 */ {
     opacity: 0;
