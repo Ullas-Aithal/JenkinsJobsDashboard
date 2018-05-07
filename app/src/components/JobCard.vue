@@ -1,12 +1,13 @@
 <template>
 
-    <div class="col s3">
+    <div class="col s3 cards-container">
         <div class="card blue-grey darken-1">
           <transition name="fade">
             <div v-show="apiCalls" class="progress">
               <div class="indeterminate"></div>
             </div>
           </transition>
+          <span class="new badge" data-badge-caption="">ETA: {{currentBuildData.completionTime}}</span>
           <div class="card-content white-text">
             <span class="card-title">{{job.name}}
               <div v-if="currentStatus" class="right preloader-wrapper small active">
@@ -28,21 +29,21 @@
             </transition>
           </div>
           <transition name="fade">
-            <div v-if="currentStatus" class="card-tabs">
+            <div>
               <ul class="tabs blue-grey darken-3 tabs-fixed-width">
                 <li class="tab"><a class="active" href="#test5">Build In Progress...</a></li>
               </ul>
             </div>
           </transition>
             <transition name="fade">
-            <div v-if="currentStatus" class="card-content blue-grey darken-3 white-text">
+            <!-- <div v-if="currentStatus">
               <div id="test5">
                 <p> Build Number : {{currentBuildData.displayName}} </p>
                 <p>{{currentBuildData.shortDescription}}</p>
                 <p> Started at : {{startedOn}} </p>
                 <p> Estimated Duration : {{estimatedDuration}} </p>
               </div>
-            </div>
+            </div> -->
           </transition>
         </div>
     </div>
@@ -101,6 +102,7 @@ export default {
           this.currentBuildData.timestamp = response.data.timestamp
           this.startedOn = this.getTimestampInHours(this.currentBuildData.timestamp)
           this.currentStatus = response.data.building
+          this.currentBuildData.completionTime = this.calculateRemainingTime(parseInt(this.currentBuildData.estimatedDuration), parseInt(this.currentBuildData.timestamp))
         }, response => {
           this.currentStatus = 'Failed to get lastBuild - ' + response.data
         })
@@ -121,6 +123,21 @@ export default {
       // Will display time in 10:30:23 format
       var formattedTime = hours + ':' + minutes.substr(-2) + ':' + seconds.substr(-2)
       return formattedTime
+    },
+    calculateRemainingTime: function (estimatedDuration, timestamp) {
+      console.log(timestamp)
+      console.log(estimatedDuration)
+/*       var startDate = new Date(timestamp)
+      var completionTime = startDate.getTime() + estimatedDuration
+      var now = Date.now()
+      var eta = completionTime */
+      var startDate = new Date(timestamp)
+      var calculatedEndDate = new Date(startDate.getTime() + estimatedDuration)
+      var now = Date.now()
+      var actualEstimatedTime = now - calculatedEndDate
+      console.log(now)
+      var etaInHours = this.getTimeinHours(actualEstimatedTime)
+      return etaInHours
     },
     getShortDescription: function (actions) {
       for (var action in actions) {
@@ -153,7 +170,8 @@ export default {
         shortDescription: 'Loading description....',
         duration: 0,
         estimatedDuration: 0,
-        timestamp: 0
+        timestamp: 0,
+        completionTime: 0
       },
       apiCalls: 0
     }
@@ -181,5 +199,11 @@ export default {
   /* .slide-fade-leave-active below version 2.1.8 */ {
     transform: translateX(10px);
     opacity: 0;
+  }
+  .cards-container {
+    column-break-inside: avoid;
+  }
+  .cards-container .card {
+    overflow: visible;
   }
 </style>

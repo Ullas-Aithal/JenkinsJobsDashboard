@@ -6,8 +6,8 @@
 </template>
 <script>
 import JobCard from './JobCard.vue'
-import jobData from '../../jobData.js'
-// import jobData from '../../local-jobData.js'
+// import jobData from '../../jobData.js'
+import jobData from '../../local-jobData.js'
 export default {
   name: 'JenkinsJobs',
   components: {
